@@ -17,7 +17,9 @@ class UsersPresenter(private val usersRepo: GitHubUsersRepo, private val router:
         loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
-
+            val user = usersListPresenter.users[itemView.pos].login
+            val screens = AndroidScreens()
+            router.navigateTo(screens.info(user))
         }
     }
 
