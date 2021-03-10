@@ -3,10 +3,14 @@ package ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.presenter
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.GitHubUsersRepo
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.navigation.IScreens
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.UsersView
-import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.navigation.AndroidScreens
 
-class UsersPresenter(private val usersRepo: GitHubUsersRepo, private val router: Router) :
+class UsersPresenter(
+    private val usersRepo: GitHubUsersRepo,
+    private val router: Router,
+    private val screens: IScreens
+) :
     MvpPresenter<UsersView>() {
 
     val usersListPresenter = UsersListPresenter()
@@ -18,7 +22,6 @@ class UsersPresenter(private val usersRepo: GitHubUsersRepo, private val router:
 
         usersListPresenter.itemClickListener = { itemView ->
             val user = usersListPresenter.users[itemView.pos].login
-            val screens = AndroidScreens()
             router.navigateTo(screens.info(user))
         }
     }
