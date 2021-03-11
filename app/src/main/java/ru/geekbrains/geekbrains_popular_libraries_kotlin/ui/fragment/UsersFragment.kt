@@ -13,6 +13,7 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.UsersView
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.App
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.BackButtonListener
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.adapter.UsersRVAdapter
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.navigation.AndroidScreens
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
@@ -20,12 +21,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GitHubUsersRepo(), App.instance.router)
+        UsersPresenter(GitHubUsersRepo(), App.instance.router, AndroidScreens())
     }
 
-    var adapter: UsersRVAdapter? = null
-
-    private var vb: FragmentUsersBinding? = null
+    private var adapter: UsersRVAdapter? = null
+    private var ui: FragmentUsersBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,18 +33,18 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         savedInstanceState: Bundle?
     ) =
         FragmentUsersBinding.inflate(inflater, container, false).also {
-            vb = it
+            ui = it
         }.root
 
     override fun onDestroyView() {
-        vb = null
+        ui = null
         super.onDestroyView()
     }
 
     override fun init() {
-        vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
+        ui?.rvUsers?.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
-        vb?.rvUsers?.adapter = adapter
+        ui?.rvUsers?.adapter = adapter
     }
 
     override fun updateList() {

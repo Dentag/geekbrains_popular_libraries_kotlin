@@ -17,12 +17,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val navigator = AppNavigator(this, R.id.container)
 
     private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
-    private var vb: ActivityMainBinding? = null
+    private var ui: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        ui = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(ui?.root)
     }
 
     override fun onResumeFragments() {
