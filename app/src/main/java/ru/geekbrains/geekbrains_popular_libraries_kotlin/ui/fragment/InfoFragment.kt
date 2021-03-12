@@ -29,16 +29,11 @@ class InfoFragment : MvpAppCompatFragment(), InfoView, BackButtonListener {
     }
 
     private val presenter: InfoPresenter by moxyPresenter {
+        val currentUser = arguments?.getParcelable<GitHubUser>(USER_ARG) as GitHubUser
         InfoPresenter(App.instance.router, currentUser)
     }
 
     private var ui: FragmentInfoBinding? = null
-    private var currentUser: GitHubUser? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        currentUser = arguments?.getParcelable(USER_ARG)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

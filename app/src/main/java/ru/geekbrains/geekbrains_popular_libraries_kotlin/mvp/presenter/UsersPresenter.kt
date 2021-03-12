@@ -1,6 +1,7 @@
 package ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.presenter
 
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.GitHubUsersRepo
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.navigation.IScreens
@@ -9,7 +10,8 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.UsersView
 class UsersPresenter(
     private val usersRepo: GitHubUsersRepo,
     private val router: Router,
-    private val screens: IScreens
+    private val screens: IScreens,
+    private val uiScheduler: Scheduler
 ) :
     MvpPresenter<UsersView>() {
 
@@ -27,9 +29,12 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        usersRepo.getUsers().observeOn(uiScheduler).subscribe({ result ->
+            usersListPresenter.users.addAll(result)
+            viewState.updateList()
+        }, { error ->
+            error.printStackTrace()
+        })
     }
 
     fun backPressed(): Boolean {
