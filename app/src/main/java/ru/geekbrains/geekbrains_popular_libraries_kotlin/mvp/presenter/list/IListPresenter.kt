@@ -1,6 +1,7 @@
 package ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.presenter.list
 
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.list.IItemView
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.list.IRepoItemView
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.list.IUserItemView
 
 interface IListPresenter<V : IItemView> {
@@ -10,3 +11,5 @@ interface IListPresenter<V : IItemView> {
 }
 
 interface IUserListPresenter : IListPresenter<IUserItemView>
+
+interface IRepoListPresenter : IListPresenter<IRepoItemView>
