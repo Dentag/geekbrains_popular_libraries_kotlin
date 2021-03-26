@@ -36,7 +36,7 @@ class InfoPresenter(
     }
 
     private fun loadData() {
-        reposRepo.getRepos(user.reposUrl).observeOn(uiScheduler).subscribe({ result ->
+        reposRepo.getRepos(user).observeOn(uiScheduler).subscribe({ result ->
             reposPresenter.repos.clear()
             reposPresenter.repos.addAll(result)
             viewState.updateList()
