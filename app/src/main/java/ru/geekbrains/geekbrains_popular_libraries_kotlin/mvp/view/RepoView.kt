@@ -5,5 +5,5 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 
 @AddToEndSingle
 interface RepoView : MvpView {
-    fun init(ownerName: String, repoName: String, language: String, forksNumber: String)
+    fun init(ownerName: String, repoName: String, forksNumber: String)
 }

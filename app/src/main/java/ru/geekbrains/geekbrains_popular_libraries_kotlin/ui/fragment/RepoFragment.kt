@@ -32,7 +32,8 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
         val currentRepo = arguments?.getParcelable<GitHubUserRepo>(REPO_ARG) as GitHubUserRepo
         RepoPresenter(
             App.instance.router,
-            currentRepo)
+            currentRepo
+        )
     }
 
     override fun onCreateView(
@@ -48,14 +49,13 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
         super.onDestroyView()
     }
 
-    override fun init(ownerName: String, repoName: String, language: String, forksNumber: String) {
+    override fun backPressed() = presenter.backPressed()
+
+    override fun init(ownerName: String, repoName: String, forksNumber: String) {
         ui?.run {
             tvOwnerValue.text = ownerName
             tvRepoNameValue.text = repoName
-            tvLanguageValue.text = language
             tvForksValue.text = forksNumber
         }
     }
-
-    override fun backPressed() = presenter.backPressed()
 }

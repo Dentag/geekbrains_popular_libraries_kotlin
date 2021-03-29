@@ -16,6 +16,6 @@ class RepoPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.init(repo.owner.login, repo.name, repo.language ?: "", repo.forks.toString())
+        viewState.init(repo.id, repo.name, repo.forksCount.toString())
     }
 }
