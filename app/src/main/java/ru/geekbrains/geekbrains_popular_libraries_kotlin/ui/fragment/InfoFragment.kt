@@ -9,14 +9,17 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.databinding.FragmentInfoBinding
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.ApiHolder
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.cache.room.RoomGithubRepositoriesCache
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.RetrofitGitHubUsersReposRepo
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.entity.GitHubUser
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.room.db.Database
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.presenter.InfoPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.InfoView
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.App
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.BackButtonListener
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.adapter.ReposRVAdapter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.navigation.AndroidScreens
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.network.AndroidNetworkStatus
 
 private const val USER_ARG = "userArg"
 
@@ -36,7 +39,11 @@ class InfoFragment : MvpAppCompatFragment(), InfoView, BackButtonListener {
     private val presenter: InfoPresenter by moxyPresenter {
         val currentUser = arguments?.getParcelable<GitHubUser>(USER_ARG) as GitHubUser
         InfoPresenter(
-            RetrofitGitHubUsersReposRepo(ApiHolder.api),
+            RetrofitGitHubUsersReposRepo(
+                ApiHolder.api,
+                AndroidNetworkStatus(App.instance),
+                RoomGithubRepositoriesCache(Database.getInstance())
+            ),
             App.instance.router,
             AndroidScreens(),
             currentUser,
