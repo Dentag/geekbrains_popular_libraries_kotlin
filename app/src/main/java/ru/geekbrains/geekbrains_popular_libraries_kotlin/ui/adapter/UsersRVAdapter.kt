@@ -8,12 +8,13 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.databinding.ItemUserBin
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.image.IImageLoader
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.presenter.list.IUserListPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.list.IUserItemView
+import javax.inject.Inject
 
-class UsersRVAdapter(
-    private val presenter: IUserListPresenter,
-    private val imageLoader: IImageLoader<ImageView>
-) :
+class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
+
+    @Inject
+    lateinit var imageLoader: IImageLoader<ImageView>
 
     inner class ViewHolder(private val ui: ItemUserBinding) : RecyclerView.ViewHolder(ui.root),
         IUserItemView {

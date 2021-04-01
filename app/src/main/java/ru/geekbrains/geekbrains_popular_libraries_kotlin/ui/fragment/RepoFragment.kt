@@ -12,28 +12,23 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.RepoView
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.App
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.ui.BackButtonListener
 
-private const val REPO_ARG = "RepoArg"
 
 class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
-
     companion object {
-        fun newInstance(repo: GitHubUserRepo): RepoFragment {
-            val args = Bundle()
-            args.putParcelable(REPO_ARG, repo)
-
-            val fragment = RepoFragment()
-            fragment.arguments = args
-            return fragment
+        private const val REPO_ARG = "RepoArg"
+        fun newInstance(repo: GitHubUserRepo) = RepoFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(REPO_ARG, repo)
+            }
         }
     }
 
     private var ui: FragmentRepoBinding? = null
     private val presenter: RepoPresenter by moxyPresenter {
         val currentRepo = arguments?.getParcelable<GitHubUserRepo>(REPO_ARG) as GitHubUserRepo
-        RepoPresenter(
-            App.instance.router,
-            currentRepo
-        )
+        RepoPresenter(currentRepo).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreateView(

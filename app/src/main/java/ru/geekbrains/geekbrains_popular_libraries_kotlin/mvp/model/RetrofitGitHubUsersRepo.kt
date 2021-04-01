@@ -7,8 +7,6 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.api.IGitHubUsersRep
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.cache.IUsersCache
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.entity.GitHubUser
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.network.INetworkStatus
-import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.room.RoomGithubUser
-import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.room.db.Database
 
 
 class RetrofitGitHubUsersRepo(
