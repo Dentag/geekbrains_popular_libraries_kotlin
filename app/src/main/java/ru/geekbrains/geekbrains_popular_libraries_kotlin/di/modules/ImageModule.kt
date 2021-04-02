@@ -18,6 +18,6 @@ class ImageModule {
     fun imageLoader(
         cache: IImageCache,
         networkStatus: INetworkStatus,
-        mainScheduler: Scheduler
+        @Named("ui") mainScheduler: Scheduler
     ): IImageLoader<ImageView> = GlideImageLoader(cache, networkStatus, mainScheduler)
 }

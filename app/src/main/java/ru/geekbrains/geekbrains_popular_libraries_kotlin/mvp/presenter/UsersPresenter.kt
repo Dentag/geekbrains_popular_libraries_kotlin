@@ -21,6 +21,7 @@ class UsersPresenter() :
     lateinit var screens: IScreens
 
     @Inject
+    @field: Named("ui")
     lateinit var uiScheduler: Scheduler
 
     val usersListPresenter = UsersListPresenter()

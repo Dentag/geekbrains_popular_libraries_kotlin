@@ -22,6 +22,7 @@ class InfoPresenter(private val user: GitHubUser) :
     lateinit var screens: IScreens
 
     @Inject
+    @field: Named("ui")
     lateinit var uiScheduler: Scheduler
 
     val reposPresenter = ReposListPresenter()

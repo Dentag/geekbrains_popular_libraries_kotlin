@@ -10,5 +10,6 @@ import javax.inject.Named
 class SchedulerModule {
 
     @Provides
+    @Named("ui")
     fun uiScheduler(): Scheduler = AndroidSchedulers.mainThread()
 }
