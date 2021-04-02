@@ -6,14 +6,23 @@ import moxy.MvpPresenter
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.api.IGitHubUsersRepo
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.navigation.IScreens
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.UsersView
+import javax.inject.Inject
+import javax.inject.Named
 
-class UsersPresenter(
-    private val usersRepo: IGitHubUsersRepo,
-    private val router: Router,
-    private val screens: IScreens,
-    private val uiScheduler: Scheduler
-) :
+class UsersPresenter() :
     MvpPresenter<UsersView>() {
+    @Inject
+    lateinit var usersRepo: IGitHubUsersRepo
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var screens: IScreens
+
+    @Inject
+    @field: Named("ui")
+    lateinit var uiScheduler: Scheduler
 
     val usersListPresenter = UsersListPresenter()
 

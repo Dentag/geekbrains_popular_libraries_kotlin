@@ -1,9 +1,9 @@
 package ru.geekbrains.geekbrains_popular_libraries_kotlin.ui
 
 import android.app.Application
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
-import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.room.db.Database
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.di.AppComponent
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.di.DaggerAppComponent
+import ru.geekbrains.geekbrains_popular_libraries_kotlin.di.modules.AppModule
 
 class App : Application() {
     companion object {
@@ -11,17 +11,13 @@ class App : Application() {
             private set
     }
 
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
-
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-    val router
-        get() = cicerone.router
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Database.create(this)
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

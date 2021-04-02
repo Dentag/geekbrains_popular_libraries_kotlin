@@ -7,15 +7,23 @@ import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.api.IGitHubUsersRep
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.model.entity.GitHubUser
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.navigation.IScreens
 import ru.geekbrains.geekbrains_popular_libraries_kotlin.mvp.view.InfoView
+import javax.inject.Inject
+import javax.inject.Named
 
-class InfoPresenter(
-    private val reposRepo: IGitHubUsersReposRepo,
-    private val router: Router,
-    private val screens: IScreens,
-    private val user: GitHubUser,
-    private val uiScheduler: Scheduler
-) :
+class InfoPresenter(private val user: GitHubUser) :
     MvpPresenter<InfoView>() {
+    @Inject
+    lateinit var reposRepo: IGitHubUsersReposRepo
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var screens: IScreens
+
+    @Inject
+    @field: Named("ui")
+    lateinit var uiScheduler: Scheduler
 
     val reposPresenter = ReposListPresenter()
 
